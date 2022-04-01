@@ -25,6 +25,10 @@ class OpenstackSummary(OpenstackServiceChecksBase):
         if self.apt_check.core:
             return self.apt_check.all_formatted
 
+    @idx(2)
+    def __summary_ssl(self):
+        return self.is_ssl_enabled
+
     @idx(3)
     def __summary_docker_images(self):
         # require at least one core image to be in-use to include

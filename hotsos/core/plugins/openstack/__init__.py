@@ -138,15 +138,15 @@ OST_REL_INFO = {
         'juno': '1:2014.2.0',
         'icehouse': '1:2014.1.0'},
     'octavia-common': {
-        'yoga': '1:10.0.0',
-        'xena': '1:9.0.0',
-        'wallaby': '1:8.0.0',
+        'yoga': '10.0.0',
+        'xena': '9.0.0',
+        'wallaby': '8.0.0',
         'victoria': '7.0.0',
         'ussuri': '6.0.0',
         'train': '5.0.0',
         'stein': '4.0.0',
         'rocky': '3.0.0'}
-    }
+}
 
 OST_EXCEPTIONS = {'barbican': BARBICAN_EXCEPTIONS + CASTELLAN_EXCEPTIONS,
                   'cinder': CINDER_EXCEPTIONS + CASTELLAN_EXCEPTIONS,
@@ -471,6 +471,10 @@ class OSTServiceBase(object):
         """ Return True if the openstack service is installed. """
         return self.project.installed
 
+    @property
+    def ssl_enabled(self):
+        return self.project.ssl_enabled
+
 
 class OctaviaBase(OSTServiceBase):
     OCTAVIA_HM_PORT_NAME = 'o-hm0'
@@ -771,11 +775,11 @@ class OpenstackBase(object):
         self.ost_projects = OSTProjectCatalog()
         other_pkgs = self.ost_projects.packages_dep_exprs
         self.apt_check = checks.APTPackageChecksBase(
-                               core_pkgs=self.ost_projects.packages_core_exprs,
-                               other_pkgs=other_pkgs)
+            core_pkgs=self.ost_projects.packages_core_exprs,
+            other_pkgs=other_pkgs)
         self.docker_check = checks.DockerImageChecksBase(
-                               core_pkgs=self.ost_projects.packages_core_exprs,
-                               other_pkgs=self.ost_projects.packages_dep_exprs)
+            core_pkgs=self.ost_projects.packages_core_exprs,
+            other_pkgs=self.ost_projects.packages_dep_exprs)
         self.nova = NovaBase()
         self.neutron = NeutronBase()
         self.octavia = OctaviaBase()
@@ -872,6 +876,21 @@ class OpenstackBase(object):
             return sorted(release_info['uca'], reverse=True)[0]
 
         return relname
+
+    @property
+    def ssl_enabled(self):
+        ssl_enabled = False
+        apache2_ssl_config_file = os.path.join(
+            HotSOSConfig.DATA_ROOT, 'etc/apache2/sites-enabled',
+                                    'openstack_https_frontend.conf')
+        try:
+            if self.ost_projects.get('systemd_extra_services'):
+                if 'apache2' in self.ost_projects.systemd_extra_services and \
+                        os.path.exists(os.readlink(apache2_ssl_config_file)):
+                    ssl_enabled = True
+        except KeyError:
+            pass
+        return ssl_enabled
 
 
 class OpenstackChecksBase(OpenstackBase, plugintools.PluginPartBase):

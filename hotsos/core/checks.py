@@ -13,7 +13,7 @@ SVC_EXPR_TEMPLATES = {
     "absolute": r".+\S+bin/({})(?:\s+.+|$)",
     "snap": r".+\S+\d+/({})(?:\s+.+|$)",
     "relative": r".+\s({})(?:\s+.+|$)",
-    }
+}
 
 
 class ConfigBase(object):
@@ -369,6 +369,10 @@ class ServiceChecksBase(object):
         """Return a list of processes associated with services. """
         return ["{} ({})".format(name, count)
                 for name, count in sorted_dict(self.processes).items()]
+
+    @property
+    def is_ssl_enabled(self):
+        return self.ssl_enabled
 
 
 class DPKGVersionCompare(object):
