@@ -370,10 +370,6 @@ class ServiceChecksBase(object):
         return ["{} ({})".format(name, count)
                 for name, count in sorted_dict(self.processes).items()]
 
-    @property
-    def is_ssl_enabled(self):
-        return self.ssl_enabled
-
 
 class DPKGVersionCompare(object):
 

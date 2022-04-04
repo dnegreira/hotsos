@@ -1,5 +1,8 @@
 import os
 import re
+from cryptography import x509
+from cryptography.hazmat.backends import default_backend
+
 
 from hotsos.core import issues
 from hotsos.core import (
@@ -471,10 +474,6 @@ class OSTServiceBase(object):
         """ Return True if the openstack service is installed. """
         return self.project.installed
 
-    @property
-    def ssl_enabled(self):
-        return self.project.ssl_enabled
-
 
 class OctaviaBase(OSTServiceBase):
     OCTAVIA_HM_PORT_NAME = 'o-hm0'
@@ -768,6 +767,33 @@ class NeutronServiceChecks(object):
         return run_manually
 
 
+class SSLCertificatesBase(object):
+
+    @ property
+    def certificate_list(self):
+        certificate_list = []
+        if self.ssl_enabled:
+            with open(self.apache2_ssl_config_file) as fd:
+                for line in fd:
+                    regex_match = re.search(r'SSLCertificateFile (.*)',
+                                            line)
+                if regex_match:
+                    certificate_list.append(regex_match.group(1))
+        return certificate_list
+
+    @ property
+    def certificate_expire_dates(self):
+        certificate_expire_dates = []
+        certificates = self.certificate_list
+        for certificate in certificates:
+            with open(certificate, "rb") as fd:
+                pem_cert = fd.read()
+                cert = x509.load_pem_x509_certificate(
+                    pem_cert, default_backend())
+                certificate_expire_dates[certificate] = cert.not_valid_after
+        return certificate_expire_dates
+
+
 class OpenstackBase(object):
 
     def __init__(self, *args, **kwargs):
@@ -878,18 +904,18 @@ class OpenstackBase(object):
         return relname
 
     @property
+    def apache2_ssl_config_file(self):
+        return os.path.join(HotSOSConfig.DATA_ROOT,
+                            'etc/apache2/sites-enabled',
+                            'openstack_https_frontend.conf')
+
+    @property
     def ssl_enabled(self):
         ssl_enabled = False
-        apache2_ssl_config_file = os.path.join(
-            HotSOSConfig.DATA_ROOT, 'etc/apache2/sites-enabled',
-                                    'openstack_https_frontend.conf')
-        try:
-            if self.ost_projects.get('systemd_extra_services'):
-                if 'apache2' in self.ost_projects.systemd_extra_services and \
-                        os.path.exists(os.readlink(apache2_ssl_config_file)):
-                    ssl_enabled = True
-        except KeyError:
-            pass
+        if 'apache2' in self.services:
+            if self.services['apache2'] == 'enabled' and \
+                    os.path.exists(self.apache2_ssl_config_file):
+                ssl_enabled = True
         return ssl_enabled
 
 

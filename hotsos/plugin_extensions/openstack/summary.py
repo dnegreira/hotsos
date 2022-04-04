@@ -26,8 +26,8 @@ class OpenstackSummary(OpenstackServiceChecksBase):
             return self.apt_check.all_formatted
 
     @idx(2)
-    def __summary_ssl(self):
-        return self.is_ssl_enabled
+    def __summary_ssl_enabled(self):
+        return self.ssl_enabled
 
     @idx(3)
     def __summary_docker_images(self):
