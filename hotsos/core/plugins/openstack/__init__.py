@@ -1,8 +1,6 @@
 import os
 import re
 
-
-from hotsos.core import issues
 from hotsos.core import (
     checks,
     host_helpers,
@@ -811,9 +809,11 @@ class OpenstackBase(object):
         return os.path.join(HotSOSConfig.DATA_ROOT, 'etc/apt/sources.list.d')
 
     @property
-    def release_name(self):
-        relname = None
-
+    def installed_pkg_release_names(self):
+        """
+        Get release name for each installed package that we are tracking and
+        return as a list of names. The list should normally have length 1.
+        """
         relnames = set()
         for pkg in OST_REL_INFO:
             if pkg in self.apt_check.core:
@@ -835,18 +835,19 @@ class OpenstackBase(object):
                     relnames.add(r_lt)
 
         log.debug("release name(s) found: %s", ','.join(relnames))
+        return list(relnames)
+
+    @property
+    def release_name(self):
+        relnames = self.installed_pkg_release_names
         if relnames:
-            relnames = sorted(list(relnames))
             if len(relnames) > 1:
-                msg = ("openstack packages from mixed releases found - {}".
-                       format(relnames))
-                issue = issues.OpenstackWarning(msg)
-                issues.utils.add_issue(issue)
+                log.warning("Openstack packages from more than one release "
+                            "identified: %s", relnames)
 
-            relname = relnames[0]
-
-        if relname:
-            return relname
+            # expect one, if there are more that should be covered by a
+            # scenario check.
+            return relnames[0]
 
         relname = 'unknown'
 
@@ -907,7 +908,7 @@ class OpenstackBase(object):
         certificate_list = self.apache2_certificates_list
         for certificate in certificate_list:
             ssl_checks = checks.SSLCertificatesChecksBase(certificate)
-            if ssl_checks.certificate_expires_soon(certificate):
+            if ssl_checks.certificate_expires_soon:
                 apache2_certificates_expiring.append(certificate)
         return apache2_certificates_expiring
 

@@ -1,18 +1,24 @@
 checks:
   is_mon:
     requires:
-      systemd: ceph-mon
-      value: enabled
+      systemd:
+        ceph-mon: enabled
+  cluster_health_available:
+    requires:
+      property:
+        path: hotsos.core.plugins.storage.ceph.CephCluster.health_status
+        ops: [[ne, null]]
   cluster_unhealthy:
     requires:
-      property: hotsos.core.plugins.storage.ceph.CephCluster.health_status
-      value: HEALTH_OK
-      op: ne
+      property:
+        path: hotsos.core.plugins.storage.ceph.CephCluster.health_status
+        ops: [[ne, HEALTH_OK]]
 conclusions:
   cluster-health-not-ok:
     decision:
       and:
         - is_mon
+        - cluster_health_available
         - cluster_unhealthy
     raises:
       type: hotsos.core.issues.CephWarning

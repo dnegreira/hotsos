@@ -58,7 +58,7 @@ class ConfigBase(object):
 
             rprev = value
 
-        return irange
+        return ','.join(irange)
 
     @classmethod
     def expand_value_ranges(cls, ranges):
