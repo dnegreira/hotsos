@@ -5,7 +5,7 @@ import re
 import subprocess
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
-from datetime import date
+from datetime import datetime
 
 from hotsos.core.log import log
 from hotsos.core.config import HotSOSConfig
@@ -798,7 +798,7 @@ class SSLCertificatesChecksBase(object):
     @property
     def certificate_days_to_expire(self):
         "return int(days) remaining until the certificate expires"
-        today = date.today()
+        today = datetime.today()
         certificate_date = self.certificate_expire_date
         days_to_expire = certificate_date - today
         return int(days_to_expire.days)

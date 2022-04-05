@@ -896,8 +896,8 @@ class OpenstackBase(object):
                 for line in fd:
                     regex_match = re.search(r'SSLCertificateFile (.*)',
                                             line)
-                if regex_match:
-                    certificate_list.append(regex_match.group(1))
+                    if regex_match:
+                        certificate_list.append(regex_match.group(1))
         return certificate_list
 
     @property
