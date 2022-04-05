@@ -778,6 +778,7 @@ class OpenstackBase(object):
         self.nova = NovaBase()
         self.neutron = NeutronBase()
         self.octavia = OctaviaBase()
+        self.ost_project = OSTProject()
 
     @property
     def apt_packages_all(self):
@@ -884,7 +885,7 @@ class OpenstackBase(object):
     @property
     def ssl_enabled(self):
         ssl_enabled = False
-        if 'apache2' in self.services:
+        if 'apache2' in self.ost_project.services:
             if self.services['apache2'] == 'enabled' and \
                     os.path.exists(self.apache2_ssl_config_file):
                 ssl_enabled = True
