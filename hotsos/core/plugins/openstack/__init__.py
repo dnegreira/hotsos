@@ -1,7 +1,5 @@
 import os
 import re
-from cryptography import x509
-from cryptography.hazmat.backends import default_backend
 
 
 from hotsos.core import issues
@@ -767,33 +765,6 @@ class NeutronServiceChecks(object):
         return run_manually
 
 
-class SSLCertificatesBase(object):
-
-    @ property
-    def certificate_list(self):
-        certificate_list = []
-        if self.ssl_enabled:
-            with open(self.apache2_ssl_config_file) as fd:
-                for line in fd:
-                    regex_match = re.search(r'SSLCertificateFile (.*)',
-                                            line)
-                if regex_match:
-                    certificate_list.append(regex_match.group(1))
-        return certificate_list
-
-    @ property
-    def certificate_expire_dates(self):
-        certificate_expire_dates = []
-        certificates = self.certificate_list
-        for certificate in certificates:
-            with open(certificate, "rb") as fd:
-                pem_cert = fd.read()
-                cert = x509.load_pem_x509_certificate(
-                    pem_cert, default_backend())
-                certificate_expire_dates[certificate] = cert.not_valid_after
-        return certificate_expire_dates
-
-
 class OpenstackBase(object):
 
     def __init__(self, *args, **kwargs):
@@ -917,6 +888,28 @@ class OpenstackBase(object):
                     os.path.exists(self.apache2_ssl_config_file):
                 ssl_enabled = True
         return ssl_enabled
+
+    @property
+    def apache2_certificates_list(self):
+        certificate_list = []
+        if self.ssl_enabled:
+            with open(self.apache2_ssl_config_file) as fd:
+                for line in fd:
+                    regex_match = re.search(r'SSLCertificateFile (.*)',
+                                            line)
+                if regex_match:
+                    certificate_list.append(regex_match.group(1))
+        return certificate_list
+
+    @property
+    def apache2_certificates_expiring(self):
+        apache2_certificates_expiring = []
+        certificate_list = self.apache2_certificates_list
+        for certificate in certificate_list:
+            ssl_checks = checks.SSLCertificatesChecksBase(certificate)
+            if ssl_checks.certificate_expires_soon(certificate):
+                apache2_certificates_expiring.append(certificate)
+        return apache2_certificates_expiring
 
 
 class OpenstackChecksBase(OpenstackBase, plugintools.PluginPartBase):
