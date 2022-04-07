@@ -912,8 +912,6 @@ class OpenstackBase(object):
                     ssl_certificate = SSLCertificate(certificate_path)
                     certificate_list.append(ssl_certificate)
                 except OSError:
-                    log.debug("Unable to open SSL certificate at %s",
-                              certificate_path)
                     continue
 
         return certificate_list
