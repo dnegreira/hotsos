@@ -906,7 +906,7 @@ class OpenstackBase(object):
                           self.apache2_ssl_config_file)
                 return certificate_list
 
-        if len(certificate_path_list > 0):
+        if len(certificate_path_list) > 0:
             for certificate_path in certificate_path_list:
                 try:
                     ssl_certificate = SSLCertificate(certificate_path)
