@@ -875,6 +875,44 @@ class OpenstackBase(object):
 
         return relname
 
+    @property
+    def apache2_ssl_config_file(self):
+        return os.path.join(HotSOSConfig.DATA_ROOT,
+                            'etc/apache2/sites-enabled',
+                            'openstack_https_frontend.conf')
+
+    @property
+    def ssl_enabled(self):
+        ssl_enabled = False
+        if os.path.exists(self.apache2_ssl_config_file):
+            ssl_enabled = True
+        return ssl_enabled
+
+    @property
+    def apache2_certificates_list(self):
+        certificate_list = []
+        if self.ssl_enabled:
+            with open(self.apache2_ssl_config_file) as fd:
+                for line in fd:
+                    regex_match = re.search(r'SSLCertificateFile (.*)',
+                                            line)
+                    if regex_match:
+                        certificate_list.append(regex_match.group(1))
+        return certificate_list
+
+    @property
+    def apache2_certificates_expiring(self):
+        apache2_certificates_expiring = []
+        certificate_list = self.apache2_certificates_list
+        for certificate in certificate_list:
+            try:
+                ssl_checks = checks.SSLCertificatesChecksBase(certificate)
+                if ssl_checks.certificate_expires_soon:
+                    apache2_certificates_expiring.append(certificate)
+            except IOError:
+                continue
+        return apache2_certificates_expiring
+
 
 class OpenstackChecksBase(OpenstackBase, plugintools.PluginPartBase):
 
