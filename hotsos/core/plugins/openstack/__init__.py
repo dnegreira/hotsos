@@ -11,6 +11,7 @@ from hotsos.core.ycheck.events import YEventCheckerBase
 from hotsos.core.checks import DPKGVersionCompare
 from hotsos.core.log import log
 from hotsos.core.cli_helpers import CmdBase, CLIHelper
+from hotsos.core.ssl import SSLCertificate
 from hotsos.core.plugins.openstack.exceptions import (
     EXCEPTIONS_COMMON,
     BARBICAN_EXCEPTIONS,
@@ -890,14 +891,31 @@ class OpenstackBase(object):
 
     @property
     def apache2_certificates_list(self):
+        certificate_path_list = []
         certificate_list = []
         if self.ssl_enabled:
-            with open(self.apache2_ssl_config_file) as fd:
-                for line in fd:
-                    regex_match = re.search(r'SSLCertificateFile (.*)',
-                                            line)
-                    if regex_match:
-                        certificate_list.append(regex_match.group(1))
+            try:
+                with open(self.apache2_ssl_config_file) as fd:
+                    for line in fd:
+                        regex_match = re.search(r'SSLCertificateFile (.*)',
+                                                line)
+                        if regex_match:
+                            certificate_path_list.append(regex_match.group(1))
+            except OSError:
+                log.debug("Unable to open apache2 configuration file %s",
+                          self.apache2_ssl_config_file)
+                return certificate_list
+
+        if len(certificate_path_list > 0):
+            for certificate_path in certificate_path_list:
+                try:
+                    ssl_certificate = SSLCertificate(certificate_path)
+                    certificate_list.append(ssl_certificate)
+                except OSError:
+                    log.debug("Unable to open SSL certificate at %s",
+                              certificate_path)
+                    continue
+
         return certificate_list
 
     @property
@@ -905,12 +923,9 @@ class OpenstackBase(object):
         apache2_certificates_expiring = []
         certificate_list = self.apache2_certificates_list
         for certificate in certificate_list:
-            try:
-                ssl_checks = checks.SSLCertificatesChecksBase(certificate)
-                if ssl_checks.certificate_expires_soon:
-                    apache2_certificates_expiring.append(certificate)
-            except IOError:
-                continue
+            ssl_checks = checks.SSLCertificatesChecksBase(certificate)
+            if ssl_checks.certificate_expires_soon:
+                apache2_certificates_expiring.append(certificate)
         return apache2_certificates_expiring
 
 
