@@ -780,6 +780,6 @@ class SSLCertificatesChecksBase(object):
     @property
     def certificate_expires_soon(self):
         "returns True if certificate expires in less than 60 days"
-        if self.certificate_days_to_expire <= 60:
+        if self.certificate.certificate_days_to_expire <= 60:
             return True
         return False
