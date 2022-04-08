@@ -903,7 +903,9 @@ class OpenstackBase(object):
                         regex_match = re.search(r'SSLCertificateFile (.*)',
                                                 line)
                         if regex_match:
-                            certificate_path_list.append(regex_match.group(1))
+                            certificate_path = regex_match.group(1)
+                            if certificate_path not in certificate_path_list:
+                                certificate_path_list.append(certificate_path)
             except OSError:
                 log.debug("Unable to open apache2 configuration file %s",
                           self.apache2_ssl_config_file)
