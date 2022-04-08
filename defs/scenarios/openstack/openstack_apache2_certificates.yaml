@@ -2,7 +2,7 @@ checks:
   ssl-enabled:
     requires: 
       property: hotsos.core.plugins.openstack.OpenstackBase.ssl_enabled
-  apache2-certificate-expiring:
+  apache2_certificate_expiring:
     requires:
       property: hotsos.core.plugins.openstack.OpenstackBase.apache2_certificates_expiring
       op: ne
@@ -19,4 +19,4 @@ conclusions:
         The following certificates will expire in less than 60 days:
         {apache2-certificates-path}
       format-dict:
-        apache2-certificates-path: '@checks.apache2-certificate-expiring.requires.value_actual'
+        apache2-certificates-path: '@checks.apache2_certificate_expiring.requires.value_actual'
