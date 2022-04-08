@@ -19,4 +19,4 @@ conclusions:
         The following certificates will expire in less than 60 days:
         {apache2-certificates-path}
       format-dict:
-        apache2-certificates-path: '@hotsos.core.plugins.openstack.OpenstackBase.apache2_certificates_expiring'
+        apache2-certificates-path: '@checks.apache2-certificate-expiring.requires.value_actual'
