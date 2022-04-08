@@ -11,8 +11,8 @@ conclusions:
   need_certificate_renewal:
     decision: apache2_certificate_expiring
       and:
-      - ssl-enabled
-      - apache2_certificate_expiring
+        - ssl-enabled
+        - apache2_certificate_expiring
     raises:
       type: hotsos.core.issues.OpenstackWarning
       message: >-
