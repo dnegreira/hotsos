@@ -60,11 +60,11 @@ class TestPacemakerScenarios(TestPacemakerBase):
     @mock.patch('hotsos.core.plugins.pacemaker.CLIHelper')
     @mock.patch('hotsos.core.ycheck.YDefsLoader._is_def',
                 new=utils.is_def_filter('pacemaker_node1_found.yaml'))
-    @mock.patch('hotsos.core.issues.utils.add_issue')
+    @mock.patch('hotsos.core.issues.IssuesManager.add')
     def test_node1_found(self, mock_add_issue, mock_helper):
         raised_issues = []
 
-        def fake_add_issue(issue):
+        def fake_add_issue(issue, **_kwargs):
             raised_issues.append(issue)
 
         mock_helper.return_value = mock.MagicMock()
@@ -84,8 +84,12 @@ class TestPacemakerScenarios(TestPacemakerBase):
                 'can remove the node by running the following command on the '
                 'application-hacluster leader: '
                 'juju run-action '
-                '<application>-hacluster/leaderdelete-node-from-ring '
-                'delete-node-from-ring node=node1 --wait')
+                '<application>-hacluster/leader '
+                'delete-node-from-ring node=node1 --wait\n'
+                'If the above action is not available in the charm, you can '
+                'run the following command: '
+                'juju run --application <application>-hacluster -- '
+                'sudo crm_node -R node1 --force')
             msgs = [issue.msg for issue in raised_issues]
             self.assertEqual(len(msgs), 1)
             self.assertEqual(msgs, [msg])
