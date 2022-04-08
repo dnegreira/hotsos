@@ -1,6 +1,7 @@
-requires:
-  property: hotsos.core.plugins.openstack.OpenstackBase.ssl_enabled
 checks:
+  ssl-enabled:
+    requires: hotsos.core.plugins.openstack.OpenstackBase.ssl_enabled
+      property: 
   apache2_certificate_expiring:
     requires:
       property: hotsos.core.plugins.openstack.OpenstackBase.apache2_certificates_expiring
@@ -9,10 +10,13 @@ checks:
 conclusions:
   need_certificate_renewal:
     decision: apache2_certificate_expiring
+      and:
+      - ssl-enabled
+      - apache2_certificate_expiring
     raises:
       type: hotsos.core.issues.OpenstackWarning
       message: >-
         The following certificates will expire in less than 60 days:
         {apache2_certificates_path}
       format-dict:
-        apache2_certificates_path: '@checks.apache2_certificate_expiring.requires.value_actual'
+        apache2_certificates_path: '@hotsos.core.plugins.openstack.OpenstackBase.apache2_certificates_expiring'
