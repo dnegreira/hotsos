@@ -1,7 +1,7 @@
 checks:
   ssl-enabled:
-    requires: hotsos.core.plugins.openstack.OpenstackBase.ssl_enabled
-      property: 
+    requires: 
+      property: hotsos.core.plugins.openstack.OpenstackBase.ssl_enabled
   apache2_certificate_expiring:
     requires:
       property: hotsos.core.plugins.openstack.OpenstackBase.apache2_certificates_expiring
