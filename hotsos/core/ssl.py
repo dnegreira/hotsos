@@ -39,3 +39,8 @@ class SSLCertificate(object):
         certificate_date = self.certificate_expire_date
         days_to_expire = certificate_date - today
         return int(days_to_expire.days)
+
+    @property
+    def path(self):
+        "return str(path) where the certificate file is located"
+        return str(self.certificate_path)

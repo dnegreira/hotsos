@@ -13,6 +13,6 @@ conclusions:
       type: hotsos.core.issues.OpenstackWarning
       message: >-
         The following certificates will expire in less than 60 days:
-        {apache2_certificates_expiring}
+        {apache2_certificates_path}
       format-dict:
-        apache2_certificates_expiring: hotsos.core.plugins.openstack.OpenstackBase.apache2_certificates_expiring
+        apache2_certificates_path: '@hotsos.core.plugins.openstack.OpenstackBase.apache2_certificates_expiring.path.requires.value_actual'
