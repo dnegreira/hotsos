@@ -926,7 +926,7 @@ class OpenstackBase(object):
         for certificate in certificate_list:
             ssl_checks = checks.SSLCertificatesChecksBase(certificate)
             if ssl_checks.certificate_expires_soon:
-                apache2_certificates_expiring.append(certificate)
+                apache2_certificates_expiring.append(certificate.path)
         return apache2_certificates_expiring
 
 
