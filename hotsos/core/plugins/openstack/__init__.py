@@ -900,10 +900,12 @@ class OpenstackBase(object):
             try:
                 with open(self.apache2_ssl_config_file) as fd:
                     for line in fd:
-                        regex_match = re.search(r'SSLCertificateFile (.*)',
+                        regex_match = re.search(r'SSLCertificateFile /(.*)',
                                                 line)
                         if regex_match:
-                            certificate_path = regex_match.group(1)
+                            certificate_path = os.path.join(
+                                               HotSOSConfig.DATA_ROOT,
+                                               regex_match.group(1))
                             if certificate_path not in certificate_path_list:
                                 certificate_path_list.append(certificate_path)
             except OSError:

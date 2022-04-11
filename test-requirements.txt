@@ -5,4 +5,3 @@ nose
 pylint==2.8.3
 rpdb
 testtools
-cryptography

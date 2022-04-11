@@ -20,9 +20,9 @@ class SSLCertificate(object):
         try:
             with open(self.certificate_path, "rb") as fd:
                 self.certificate = fd.read()
-        except OSError:
-            log.debug("Unable to read SSL certificate file %s",
-                      self.certificate_path)
+        except OSError as e:
+            log.debug("Unable to read SSL certificate file %s, error: %s",
+                      self.certificate_path, e)
             raise
 
     @property
