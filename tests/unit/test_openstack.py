@@ -152,6 +152,25 @@ EVENT_OCTAVIA_CHECKS = r"""
 2021-06-01 23:25:39.223 43076 WARNING octavia.controller.healthmanager.health_drivers.update_db [-] Amphora 3604bf2a-ee51-4135-97e2-ec08ed9321db health message was processed too slowly: 10.550589084625244s! The system may be overloaded or otherwise malfunctioning. This heartbeat has been ignored and no update was made to the amphora health entry. THIS IS NOT GOOD.
 """  # noqa
 
+APACHE2_SSL_CONF = """
+Listen 4990
+Listen 35347
+<VirtualHost 10.5.2.135:4990>
+    ServerName 10.5.100.2
+    SSLEngine on
+    SSLCertificateFile /etc/apache2/ssl/keystone/cert_10.5.100.2
+    SSLCertificateChainFile /etc/apache2/ssl/keystone/cert_10.5.100.2
+    SSLCertificateKeyFile /etc/apache2/ssl/keystone/key_10.5.100.2
+</VirtualHost>
+<VirtualHost 10.5.2.135:35347>
+    ServerName 10.5.100.2
+    SSLEngine on
+    SSLCertificateFile /etc/apache2/ssl/keystone/cert_10.5.100.2
+    SSLCertificateChainFile /etc/apache2/ssl/keystone/cert_10.5.100.2
+    SSLCertificateKeyFile /etc/apache2/ssl/keystone/key_10.5.100.2
+</VirtualHost>
+"""
+
 
 class TestOpenstackBase(utils.BaseTestCase):
 
@@ -1214,3 +1233,16 @@ class TestOpenstackScenarioChecks(TestOpenstackBase):
         msg = ("Openstack packages from a more than one release identified: "
                "ussuri, victoria.")
         self.assertEqual(list(raised_issues.values())[0], [msg])
+
+
+class TestOpenstackApache2SSL(TestOpenstackBase):
+
+    def test_ssl_enabled(self):
+        with tempfile.TemporaryDirectory() as dtmp:
+            conf = "etc/apache2/sites-enabled/openstack_https_frontend.conf"
+            os.makedirs(os.path.dirname(os.path.join(dtmp, conf)))
+            with open(os.path.join(dtmp, conf), 'w') as fd:
+                fd.write(APACHE2_SSL_CONF)
+        setup_config(DATA_ROOT=dtmp)
+        base = openstack_core.OpenstackBase()
+        self.assertTrue(base.ssl_enabled)
