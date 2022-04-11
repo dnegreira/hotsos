@@ -281,6 +281,116 @@ JiBFj7+sx/wHgLEaPX1WfgBCaKFhaz90ClEMAJfAQnpjDDWsLloVDwCR1yl3EO+/
 mTTs23LFXXqOTVxoncDqa0IY
 -----END CERTIFICATE-----"""  # noqa
 
+CERTIFICATE_FILE_EXPIRING = """
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 2 (0x2)
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=GB, ST=England, L=London, O=Ubuntu Cloud, OU=Cloud
+        Validity
+            Not Before: Apr 11 14:04:18 2022 GMT
+            Not After : May 26 14:04:18 2022 GMT
+        Subject: C=GB, ST=England, L=London, O=Ubuntu Cloud, OU=Cloud, CN=10.5.100.0
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                RSA Public-Key: (2048 bit)
+                Modulus:
+                    00:da:82:86:7a:6a:32:f7:96:f9:7b:70:a3:88:56:
+                    ee:8f:5e:d8:3b:b2:3e:30:1d:c4:bd:43:a4:ee:f6:
+                    48:cf:22:60:ca:8c:62:21:6a:31:86:bd:d1:3b:30:
+                    19:96:3b:bd:12:4e:4f:3a:72:25:bf:45:05:92:45:
+                    8c:0b:9f:73:f1:bd:11:c4:7d:d0:3c:fe:4c:fd:46:
+                    aa:53:e4:87:c9:0d:33:d2:a5:6d:86:ea:1c:0d:51:
+                    90:28:32:00:de:91:28:73:0e:45:be:7e:19:d4:c1:
+                    15:86:6d:c4:18:f0:83:b2:84:22:51:2c:48:8c:0b:
+                    5b:61:08:59:3d:78:c6:1f:aa:c9:d6:26:cd:2a:2f:
+                    93:ca:4b:ae:b8:5a:9b:39:5c:c6:d8:66:fe:ea:21:
+                    cb:a2:c4:75:e3:77:ee:84:9a:2a:0a:49:db:bd:f0:
+                    87:5d:68:65:90:b9:d5:00:ab:e6:24:2e:e4:5f:9c:
+                    33:4a:90:1d:27:33:54:0c:7f:9d:6b:20:9f:06:0b:
+                    b7:38:74:eb:e0:9c:e3:ba:b0:83:f8:ea:57:d5:f5:
+                    cc:ec:52:48:5e:81:8d:ab:80:56:e5:88:c7:1a:4f:
+                    0f:d8:cb:97:c6:ba:cf:d9:e3:c3:f7:aa:b3:6c:81:
+                    06:da:72:e9:84:9a:2e:db:45:d1:3d:3f:35:7d:4a:
+                    ef:cf
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                12:03:19:E3:A8:06:66:9D:8C:DA:1A:4B:D5:F7:B5:57:00:E2:02:F8
+            X509v3 Authority Key Identifier: 
+                keyid:43:98:EC:D7:CF:58:53:23:24:48:08:61:87:3E:3B:DA:36:CC:0D:27
+
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment
+            X509v3 Subject Alternative Name: 
+                IP Address:10.5.100.0, IP Address:10.5.100.1, IP Address:10.5.100.2, IP Address:10.5.100.3, IP Address:10.5.100.4, IP Address:10.5.100.5, IP Address:10.5.100.6, IP Address:10.5.100.7, IP Address:10.5.100.8, IP Address:10.5.100.9, IP Address:10.5.100.10, IP Address:10.5.100.11, IP Address:10.5.100.12, IP Address:10.5.100.13, IP Address:10.5.100.14, IP Address:10.5.100.15, IP Address:10.5.100.16, IP Address:10.5.100.17, IP Address:10.5.100.18, IP Address:10.5.100.19
+            Netscape Comment: 
+                OpenSSL Generated Certificate
+    Signature Algorithm: sha256WithRSAEncryption
+         2e:88:7e:0e:6e:0c:89:4b:ee:b3:e3:f2:45:ce:a7:2d:4b:d8:
+         0e:5b:ba:e6:53:0a:50:e3:c8:9d:38:2d:46:70:23:3d:80:0a:
+         cd:7c:1b:47:dc:ca:23:f2:78:9a:fe:9c:5f:b2:ca:f8:47:c4:
+         3e:30:7e:54:2e:ca:96:67:9d:bb:ba:35:7a:0d:f5:8c:ee:3c:
+         cc:88:97:93:0f:d9:75:8d:4c:d0:e5:9c:d6:1b:e6:22:c0:49:
+         c9:87:13:26:87:38:c5:ce:fa:37:14:82:c8:de:08:b3:c7:4f:
+         a1:5a:1a:ba:c2:f9:2b:89:93:1d:f1:db:a2:fa:a0:45:8d:3e:
+         d3:0b:5f:10:19:d1:d9:12:2c:f4:db:e6:4c:2a:2c:e4:2b:95:
+         52:06:50:de:4b:3c:be:94:c7:cb:a4:08:c0:71:0a:44:ae:e9:
+         66:a3:a2:49:73:8d:7a:a9:97:92:4a:77:e5:b9:d9:db:12:e3:
+         11:4e:f3:af:12:ba:6c:93:f4:e9:b9:b3:7b:e4:2b:60:05:18:
+         a0:04:30:12:0a:0c:1f:12:87:3f:51:45:04:39:4d:34:89:06:
+         49:cb:85:44:45:cb:69:7f:48:ed:92:be:a6:7f:37:65:13:2f:
+         98:bd:4e:57:19:dc:9d:7a:64:95:fe:dd:55:4d:78:aa:15:da:
+         eb:cf:14:ab:63:e7:8d:75:36:7b:48:75:b9:1c:0d:f9:94:cf:
+         cd:c4:f9:a8:71:fe:a7:21:86:1a:5c:c3:d3:6a:b1:74:8b:78:
+         d0:ba:8c:b6:ee:c2:f9:f6:29:aa:69:13:c6:7d:15:78:bb:50:
+         8c:70:53:dc:26:f7:e9:d4:02:15:18:83:f3:2d:a7:57:93:74:
+         21:31:90:71:25:f9:a1:90:12:3f:e5:22:b8:ca:f1:ca:e8:56:
+         d3:61:a3:0c:55:2f:a1:5c:85:42:ca:cf:92:6c:13:3f:4a:5d:
+         0c:ec:5e:1d:20:ed:d8:91:3c:dc:cd:f5:af:87:9d:bf:2d:71:
+         7f:06:26:d1:da:9b:07:da:a0:c2:43:5a:2d:63:9e:a1:ee:cc:
+         af:c9:3e:33:da:fa:e9:5e:0d:5c:9a:45:01:1e:a4:33:a3:ad:
+         1a:2b:9b:89:40:07:e2:e9:e3:19:a7:ca:fe:ca:eb:9d:95:92:
+         ca:a8:20:bb:52:d9:2a:b7:9b:24:3a:f7:22:1a:b8:58:39:aa:
+         8f:86:c1:41:85:3b:a9:e0:57:a3:fe:d0:b4:76:9b:44:39:43:
+         0c:f8:97:87:65:2c:ec:7d:98:b0:bb:a4:df:f4:b7:d7:fa:f5:
+         b6:9c:41:c8:53:38:11:74:06:af:33:ff:53:67:eb:a8:c6:a6:
+         87:ba:7f:60:12:e3:51:90
+-----BEGIN CERTIFICATE-----
+MIIFTjCCAzagAwIBAgIBAjANBgkqhkiG9w0BAQsFADBXMQswCQYDVQQGEwJHQjEQ
+MA4GA1UECAwHRW5nbGFuZDEPMA0GA1UEBwwGTG9uZG9uMRUwEwYDVQQKDAxVYnVu
+dHUgQ2xvdWQxDjAMBgNVBAsMBUNsb3VkMB4XDTIyMDQxMTE0MDQxOFoXDTIyMDUy
+NjE0MDQxOFowbDELMAkGA1UEBhMCR0IxEDAOBgNVBAgMB0VuZ2xhbmQxDzANBgNV
+BAcMBkxvbmRvbjEVMBMGA1UECgwMVWJ1bnR1IENsb3VkMQ4wDAYDVQQLDAVDbG91
+ZDETMBEGA1UEAwwKMTAuNS4xMDAuMDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBANqChnpqMveW+Xtwo4hW7o9e2DuyPjAdxL1DpO72SM8iYMqMYiFqMYa9
+0TswGZY7vRJOTzpyJb9FBZJFjAufc/G9EcR90Dz+TP1GqlPkh8kNM9KlbYbqHA1R
+kCgyAN6RKHMORb5+GdTBFYZtxBjwg7KEIlEsSIwLW2EIWT14xh+qydYmzSovk8pL
+rrhamzlcxthm/uohy6LEdeN37oSaKgpJ273wh11oZZC51QCr5iQu5F+cM0qQHScz
+VAx/nWsgnwYLtzh06+Cc47qwg/jqV9X1zOxSSF6BjauAVuWIxxpPD9jLl8a6z9nj
+w/eqs2yBBtpy6YSaLttF0T0/NX1K788CAwEAAaOCAQ4wggEKMB0GA1UdDgQWBBQS
+AxnjqAZmnYzaGkvV97VXAOIC+DAfBgNVHSMEGDAWgBRDmOzXz1hTIyRICGGHPjva
+NswNJzAJBgNVHRMEAjAAMAsGA1UdDwQEAwIFoDCBgQYDVR0RBHoweIcECgVkAIcE
+CgVkAYcECgVkAocECgVkA4cECgVkBIcECgVkBYcECgVkBocECgVkB4cECgVkCIcE
+CgVkCYcECgVkCocECgVkC4cECgVkDIcECgVkDYcECgVkDocECgVkD4cECgVkEIcE
+CgVkEYcECgVkEocECgVkEzAsBglghkgBhvhCAQ0EHxYdT3BlblNTTCBHZW5lcmF0
+ZWQgQ2VydGlmaWNhdGUwDQYJKoZIhvcNAQELBQADggIBAC6Ifg5uDIlL7rPj8kXO
+py1L2A5buuZTClDjyJ04LUZwIz2ACs18G0fcyiPyeJr+nF+yyvhHxD4wflQuypZn
+nbu6NXoN9YzuPMyIl5MP2XWNTNDlnNYb5iLAScmHEyaHOMXO+jcUgsjeCLPHT6Fa
+GrrC+SuJkx3x26L6oEWNPtMLXxAZ0dkSLPTb5kwqLOQrlVIGUN5LPL6Ux8ukCMBx
+CkSu6WajoklzjXqpl5JKd+W52dsS4xFO868SumyT9Om5s3vkK2AFGKAEMBIKDB8S
+hz9RRQQ5TTSJBknLhURFy2l/SO2SvqZ/N2UTL5i9TlcZ3J16ZJX+3VVNeKoV2uvP
+FKtj5411NntIdbkcDfmUz83E+ahx/qchhhpcw9NqsXSLeNC6jLbuwvn2KappE8Z9
+FXi7UIxwU9wm9+nUAhUYg/Mtp1eTdCExkHEl+aGQEj/lIrjK8croVtNhowxVL6Fc
+hULKz5JsEz9KXQzsXh0g7diRPNzN9a+Hnb8tcX8GJtHamwfaoMJDWi1jnqHuzK/J
+PjPa+uleDVyaRQEepDOjrRorm4lAB+Lp4xmnyv7K652VksqoILtS2Sq3myQ69yIa
+uFg5qo+GwUGFO6ngV6P+0LR2m0Q5Qwz4l4dlLOx9mLC7pN/0t9f69bacQchTOBF0
+Bq8z/1Nn66jGpoe6f2AS41GQ
+-----END CERTIFICATE-----""" # noqa
+
 
 class TestOpenstackBase(utils.BaseTestCase):
 
@@ -1370,8 +1480,8 @@ class TestOpenstackApache2SSL(TestOpenstackBase):
             os.makedirs(os.path.dirname(os.path.join(dtmp, certificate_path)))
             with open(os.path.join(dtmp, conf), 'w') as fd:
                 fd.write(APACHE2_SSL_CONF)
-            with open(os.path.join(dtmp, certificate_path), 'w') as cfd:
-                cfd.write(CERTIFICATE_FILE)
+            with open(os.path.join(dtmp, certificate_path), 'w') as fd:
+                fd.write(CERTIFICATE_FILE)
             base = openstack_core.OpenstackBase()
             self.assertTrue(len(base.apache2_certificates_list) > 0)
 
@@ -1389,3 +1499,17 @@ class TestOpenstackApache2SSL(TestOpenstackBase):
                 cfd.write(CERTIFICATE_FILE)
             base = openstack_core.OpenstackBase()
             self.assertTrue(len(base.apache2_certificates_expiring) == 0)
+
+    def test_ssl_expiration_true(self):
+        with tempfile.TemporaryDirectory() as dtmp:
+            setup_config(DATA_ROOT=dtmp)
+            conf = "etc/apache2/sites-enabled/openstack_https_frontend.conf"
+            certificate_path = "etc/apache2/ssl/keystone/cert_10.5.100.2"
+            os.makedirs(os.path.dirname(os.path.join(dtmp, conf)))
+            os.makedirs(os.path.dirname(os.path.join(dtmp, certificate_path)))
+            with open(os.path.join(dtmp, conf), 'w') as fd:
+                fd.write(APACHE2_SSL_CONF)
+            with open(os.path.join(dtmp, certificate_path), 'w') as cfd:
+                cfd.write(CERTIFICATE_FILE_EXPIRING)
+            base = openstack_core.OpenstackBase()
+            self.assertTrue(len(base.apache2_certificates_expiring) > 0)
