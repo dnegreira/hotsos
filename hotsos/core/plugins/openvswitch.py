@@ -1,7 +1,9 @@
 import re
+import os
 
 from hotsos.core import plugintools
 from hotsos.core import host_helpers
+from hotsos.core.config import HotSOSConfig
 from hotsos.core.ycheck.events import YEventCheckerBase
 
 
@@ -204,3 +206,47 @@ class OpenvSwitchEventChecksBase(OpenvSwitchChecksBase, YEventCheckerBase):
     def summary(self):
         # mainline all results into summary root
         return self.run_checks()
+
+
+class OVNChecksBase(OpenvSwitchChecksBase, plugintools.PluginPartBase):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ovn_types = ['ovn-central', 'ovn-host']
+        self.certificate_expire_days = 60
+
+    @property
+    def ovn_type(self):
+        for ovn_type in self.ovn_types:
+            if ovn_type in self.apt_packages_all:
+                return ovn_type
+        return None
+
+    @property
+    def ssl_certificate(self):
+        if self.ovn_type:
+            certificate_path = os.path.join(HotSOSConfig.DATA_ROOT,
+                                            'etc/ovn',
+                                            self.ovn_type,
+                                            '.crt')
+            if os.path.exists(certificate_path):
+                try:
+                    ssl_certificate = host_helpers.SSLCertificate(
+                                      certificate_path)
+                    return ssl_certificate
+                except OSError:
+                    pass
+        return None
+
+    @property
+    def ssl_enabled(self):
+        return True if self.ssl_certificate else False
+
+    @property
+    def ovn_certificate_expiring(self):
+        if self.ssl_enabled:
+            ssl_checks = host_helpers.SSLCertificatesChecksBase(
+                         self.ssl_certificate,
+                         self.certificate_expire_days)
+            return ssl_checks.certificate_expires_soon
+        return None
