@@ -240,7 +240,7 @@ class OVNChecksBase(OpenvSwitchChecksBase, plugintools.PluginPartBase):
 
     @property
     def ssl_enabled(self):
-        return True if self.ssl_certificate else False
+        return bool(self.ssl_certificate)
 
     @property
     def ovn_certificate_expiring(self):
