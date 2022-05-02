@@ -67,12 +67,12 @@ class OpenvSwitchSummary(OpenvSwitchChecksBase):
 
 class OVNSummary(OVNChecksBase):
 
-    @idx(0)
+    @idx(4)
     def __summary_ovn_type(self):
         if self.ovn_type:
             return self.ovn_type
 
-    @idx(1)
-    def __summary_ssl_enabled(self):
+    @idx(5)
+    def __summary_ovn_ssl_enabled(self):
         if self.ovn_type:
             return self.ssl_enabled
