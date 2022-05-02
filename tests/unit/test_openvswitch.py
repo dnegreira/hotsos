@@ -395,7 +395,7 @@ class TestOVNSSL(TestOpenvswitchBase):
 
     @mock.patch('hotsos.core.host_helpers.ssl.datetime')
     def test_ssl_expiration_false(self, mock_datetime):
-        mocked_today = datetime(2022, 4, 12)
+        mocked_today = datetime(2022, 5, 12)
         mock_datetime.return_value = mock.MagicMock()
         mock_datetime.today.return_value = mocked_today
         with tempfile.TemporaryDirectory() as dtmp:
@@ -409,7 +409,7 @@ class TestOVNSSL(TestOpenvswitchBase):
 
     @mock.patch('hotsos.core.host_helpers.ssl.datetime')
     def test_ssl_expiration_true(self, mock_datetime):
-        mocked_today = datetime(2023, 4, 12)
+        mocked_today = datetime(2023, 5, 12)
         mock_datetime.return_value = mock.MagicMock()
         mock_datetime.today.return_value = mocked_today
         with tempfile.TemporaryDirectory() as dtmp:

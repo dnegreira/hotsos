@@ -217,6 +217,11 @@ class OVNChecksBase(OpenvSwitchChecksBase, plugintools.PluginPartBase):
 
     @property
     def ovn_type(self):
+        """
+        returns None if the type is unknown, returns the ovn package name
+        unless the exception when the package name is 'ovn-host' which will
+        return 'ovn-chassis' in that case.
+        """
         for ovn_package in self.ovn_package_names:
             if ovn_package in self.apt_packages_all:
                 return 'ovn-chassis' if ovn_package == 'ovn-host' else \
@@ -225,6 +230,10 @@ class OVNChecksBase(OpenvSwitchChecksBase, plugintools.PluginPartBase):
 
     @property
     def ssl_certificate(self):
+        """
+        returns a certificate object if ovn_type is other than None and the
+        certificate is readable
+        """
         if self.ovn_type:
             certificate_name = self.ovn_type + '.crt'
             certificate_path = os.path.join(HotSOSConfig.DATA_ROOT,
@@ -245,6 +254,10 @@ class OVNChecksBase(OpenvSwitchChecksBase, plugintools.PluginPartBase):
 
     @property
     def ovn_certificate_expiring(self):
+        """
+        Returns a boolean based on the condition if the ovn certificate is
+        expiring
+        """
         if self.ssl_enabled:
             ssl_checks = host_helpers.SSLCertificatesChecksBase(
                          self.ssl_certificate,
