@@ -249,4 +249,4 @@ class OVNChecksBase(OpenvSwitchChecksBase, plugintools.PluginPartBase):
                          self.ssl_certificate,
                          self.certificate_expire_days)
             return ssl_checks.certificate_expires_soon
-        return None
+        return False
