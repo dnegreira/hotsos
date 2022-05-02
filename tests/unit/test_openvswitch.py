@@ -394,10 +394,14 @@ class TestOVNSSL(TestOpenvswitchBase):
         self.assertFalse(base.ssl_enabled)
 
     @mock.patch('hotsos.core.host_helpers.ssl.datetime')
-    def test_ssl_expiration_false(self, mock_datetime):
+    @mock.patch('hotsos.core.host_helpers.packaging.CLIHelper')
+    def test_ssl_expiration_false(self, mock_datetime, mock_cli):
         mocked_today = datetime(2022, 5, 12)
         mock_datetime.return_value = mock.MagicMock()
         mock_datetime.today.return_value = mocked_today
+        mock_cli.return_value.dpkg_l.return_value = \
+            ["ii  ovn-host 20.03.2-0ubuntu0.20.04.3  amd64 OVN host "
+             "components"]
         with tempfile.TemporaryDirectory() as dtmp:
             ssl_cert_path = "etc/ovn/ovn-chassis.crt"
             os.makedirs(os.path.dirname(os.path.join(dtmp, ssl_cert_path)))
@@ -408,10 +412,14 @@ class TestOVNSSL(TestOpenvswitchBase):
             self.assertFalse(base.ovn_certificate_expiring)
 
     @mock.patch('hotsos.core.host_helpers.ssl.datetime')
-    def test_ssl_expiration_true(self, mock_datetime):
+    @mock.patch('hotsos.core.host_helpers.packaging.CLIHelper')
+    def test_ssl_expiration_true(self, mock_datetime, mock_cli):
         mocked_today = datetime(2032, 5, 12)
         mock_datetime.return_value = mock.MagicMock()
         mock_datetime.today.return_value = mocked_today
+        mock_cli.return_value.dpkg_l.return_value = \
+            ["ii  ovn-host 20.03.2-0ubuntu0.20.04.3  amd64 OVN host "
+             "components"]
         with tempfile.TemporaryDirectory() as dtmp:
             ssl_cert_path = "etc/ovn/ovn-chassis.crt"
             os.makedirs(os.path.dirname(os.path.join(dtmp, ssl_cert_path)))
