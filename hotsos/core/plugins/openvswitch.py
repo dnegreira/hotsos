@@ -225,10 +225,10 @@ class OVNChecksBase(OpenvSwitchChecksBase, plugintools.PluginPartBase):
     @property
     def ssl_certificate(self):
         if self.ovn_type:
+            certificate_name = self.ovn_type + '.crt'
             certificate_path = os.path.join(HotSOSConfig.DATA_ROOT,
                                             'etc/ovn',
-                                            self.ovn_type,
-                                            '.crt')
+                                            certificate_name)
             if os.path.exists(certificate_path):
                 try:
                     ssl_certificate = host_helpers.SSLCertificate(
