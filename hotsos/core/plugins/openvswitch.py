@@ -212,14 +212,14 @@ class OVNChecksBase(OpenvSwitchChecksBase, plugintools.PluginPartBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.ovn_types = ['ovn-central', 'ovn-host']
+        self.ovn_package_names = ['ovn-central', 'ovn-host']
         self.certificate_expire_days = 60
 
     @property
     def ovn_type(self):
-        for ovn_type in self.ovn_types:
-            if ovn_type in self.apt_packages_all:
-                return ovn_type
+        for ovn_package in self.ovn_package_names:
+            if ovn_package in self.apt_packages_all:
+                return ovn_package if not 'ovn-host' else 'ovn-chassis'
         return None
 
     @property
