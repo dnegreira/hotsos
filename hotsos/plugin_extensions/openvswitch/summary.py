@@ -74,4 +74,5 @@ class OVNSummary(OVNChecksBase):
 
     @idx(1)
     def __summary_ssl_enabled(self):
-        return self.ssl_enabled
+        if self.ovn_type:
+            return self.ssl_enabled
