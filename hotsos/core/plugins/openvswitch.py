@@ -219,7 +219,8 @@ class OVNChecksBase(OpenvSwitchChecksBase, plugintools.PluginPartBase):
     def ovn_type(self):
         for ovn_package in self.ovn_package_names:
             if ovn_package in self.apt_packages_all:
-                return ovn_package if not 'ovn-host' else 'ovn-chassis'
+                return 'ovn-chassis' if ovn_package == 'ovn-host' else \
+                  ovn_package
         return None
 
     @property

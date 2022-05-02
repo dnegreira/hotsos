@@ -393,7 +393,6 @@ class TestOVNSSL(TestOpenvswitchBase):
         base = openvswitch.OVNChecksBase()
         self.assertFalse(base.ssl_enabled)
 
-
     @mock.patch('hotsos.core.host_helpers.ssl.datetime')
     def test_ssl_expiration_false(self, mock_datetime):
         mocked_today = datetime(2022, 4, 12)
