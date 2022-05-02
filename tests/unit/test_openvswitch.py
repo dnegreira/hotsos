@@ -48,8 +48,7 @@ DPCTL_SHOW = r"""
 """  # noqa
 
 
-OVN_SSL_CERT = """
------BEGIN CERTIFICATE-----
+OVN_SSL_CERT = """-----BEGIN CERTIFICATE-----
 MIIDazCCAlOgAwIBAgIURnrIcMq1xz1IHx2w8qxRUReo0qEwDQYJKoZIhvcNAQEL
 BQAwPTE7MDkGA1UEAxMyVmF1bHQgUm9vdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkg
 KGNoYXJtLXBraS1sb2NhbCkwHhcNMjIwNDE0MTUwNjQ4WhcNMzIwNDExMTQwNzE3
@@ -393,8 +392,8 @@ class TestOVNSSL(TestOpenvswitchBase):
         base = openvswitch.OVNChecksBase()
         self.assertFalse(base.ssl_enabled)
 
-    @mock.patch('hotsos.core.host_helpers.ssl.datetime')
     @mock.patch('hotsos.core.host_helpers.packaging.CLIHelper')
+    @mock.patch('hotsos.core.host_helpers.ssl.datetime')
     def test_ssl_expiration_false(self, mock_datetime, mock_cli):
         mocked_today = datetime(2022, 5, 12)
         mock_datetime.return_value = mock.MagicMock()
@@ -411,8 +410,8 @@ class TestOVNSSL(TestOpenvswitchBase):
             base = openvswitch.OVNChecksBase()
             self.assertFalse(base.ovn_certificate_expiring)
 
-    @mock.patch('hotsos.core.host_helpers.ssl.datetime')
     @mock.patch('hotsos.core.host_helpers.packaging.CLIHelper')
+    @mock.patch('hotsos.core.host_helpers.ssl.datetime')
     def test_ssl_expiration_true(self, mock_datetime, mock_cli):
         mocked_today = datetime(2032, 5, 12)
         mock_datetime.return_value = mock.MagicMock()
