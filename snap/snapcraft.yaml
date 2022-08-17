@@ -43,7 +43,7 @@ parts:
     stage-packages: [coreutils, bsdmainutils, systemd, dpkg, python3-yaml,
                      python3-simplejson, python3-click]
     python-packages:
-      - cryptography==3.4.8
+      - cryptography
       - wheel
       - pip
       - setuptools

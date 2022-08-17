@@ -13,7 +13,7 @@ setup(
         # last branch that can be built without the Rust toolchain.
         # More info on issue: https://github.com/canonical/hotsos/issues/326
         # [TODO] Bump cryptography to more recent release
-        'cryptography==3.4.8',
+        'cryptography',
     ],
     entry_points={
       'console_scripts': [
